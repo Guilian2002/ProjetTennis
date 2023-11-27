@@ -1,6 +1,11 @@
 package be.Pierard.pojo;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import be.Pierard.DAO.CourtDAO;
+import be.Pierard.DAO.DAO;
+import be.Pierard.DAO.TennisConnection;
 
 public class Court {
 	private int nbSpectators;
@@ -50,11 +55,24 @@ public class Court {
 		this.tournament = tournament;
 		this.match = match;
 	}
-	public void Available() {
-		
+	public Court Available(ArrayList<Court> listCourt) {
+	    Court tempCourt = null;
+	    for (int i = 0; i < listCourt.size(); i++) {
+	        if (listCourt.get(i) != null) {
+	            tempCourt = listCourt.get(i);
+	            listCourt.set(i, null);
+	            break;
+	        }
+	    }
+	    return tempCourt;
 	}
-	public void Release() {
-		
+
+	public void Release(ArrayList<Court> listCourt) {
+	    DAO<Court> courtDAO = new CourtDAO(TennisConnection.getInstance());
+	    for (int i = 0; i < 20; i++) {
+	        Court court = courtDAO.find(i + 1);
+	        listCourt.set(i, court);
+	    }
 	}
 	@Override
 	public String toString() {
