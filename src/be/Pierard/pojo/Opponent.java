@@ -64,6 +64,8 @@ public class Opponent {
         this.listMatch = new ArrayList<>();
     }
 
+	public Opponent() {}
+
 	@Override
 	public String toString() {
 		return "Opponent [player1=" + player1 + ", player2=" + player2 + ", listSet=" + listSet + ", listMatch="
