@@ -3,6 +3,9 @@ package be.Pierard.pojo;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import be.Pierard.DAO.DAO;
+import be.Pierard.DAO.TennisConnection;
+import be.Pierard.DAO.RefereeDAO;
 public class Referee extends Person{
 	private ArrayList<Tournament> listTournament;
 	private Match match;
@@ -29,11 +32,24 @@ public class Referee extends Person{
 		this.listTournament = listTournament;
 		this.match = match;
 	}
-	public void Available() {
-		
+	public Referee Available(ArrayList<Referee> listReferee) {
+	    Referee tempReferee = null;
+	    for (int i = 0; i < listReferee.size(); i++) {
+	        if (listReferee.get(i) != null) {
+	            tempReferee = listReferee.get(i);
+	            listReferee.set(i, null);
+	            break;
+	        }
+	    }
+	    return tempReferee;
 	}
-	public void Release() {
-		
+
+	public void Release(ArrayList<Referee> listReferee) {
+	    DAO<Referee> refereeDAO = new RefereeDAO(TennisConnection.getInstance());
+	    for (int i = 0; i < 20; i++) {
+	        Referee referee = refereeDAO.find(i + 1);
+	        listReferee.set(i, referee);
+	    }
 	}
 	@Override
 	public String toString() {

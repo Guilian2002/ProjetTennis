@@ -48,7 +48,6 @@ public class Set {
     public void setMatch(Match match) {
         this.match = match;
     }
-
     public Set(int scoreOp1, int scoreOp2, Match match) {
         this.scoreOp1 = scoreOp1;
         this.scoreOp2 = scoreOp2;
