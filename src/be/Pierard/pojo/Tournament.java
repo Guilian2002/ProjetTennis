@@ -39,6 +39,16 @@ public class Tournament {
 	public Tournament(String name,ArrayList<Schedule> listSchedule) {
 		super();
 		this.name = name;
+		this.listCourt = new ArrayList<Court>();
+		this.listReferee = new ArrayList<Referee>();
+		if(listSchedule.size() == 0)
+		{
+			listSchedule.add(new Schedule(ScheduleType.GentlemenSingle,1,this));
+	        listSchedule.add(new Schedule(ScheduleType.LadiesSingle,1,this));
+	        listSchedule.add(new Schedule(ScheduleType.GentlemenDouble,1,this));
+	        listSchedule.add(new Schedule(ScheduleType.LadiesDouble,1,this));
+	        listSchedule.add(new Schedule(ScheduleType.MixedDouble,1,this));
+		}
 		setListSchedule(listSchedule);
 	}
 	public Tournament(String name, ArrayList<Court> listCourt, ArrayList<Schedule> listSchedule,
@@ -50,7 +60,10 @@ public class Tournament {
 		this.listReferee = listReferee;
 	}
 	public void Play(){
-		
+        for(int i = 0; i < 5; i++)
+        {
+        	listSchedule.get(i).PlayNextRound();
+        }
 	}
 	@Override
 	public String toString() {
