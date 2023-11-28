@@ -74,6 +74,16 @@ public class Match {
 	public void setReferee(Referee referee) {
 		this.referee = referee;
 	}
+	public Match(LocalDateTime date, int duration, int round, Schedule schedule) {
+		super();
+		this.date = date;
+		this.duration = duration;
+		this.round = round;
+		this.schedule = schedule;
+        this.listSet = new ArrayList<>();
+        setOpp1(new Opponent());
+        setOpp2(new Opponent());
+	}
 	public Match(LocalDateTime date, int duration, int round, Schedule schedule, 
 			Opponent opp1, Opponent opp2) {
 		super();
@@ -99,11 +109,50 @@ public class Match {
 		this.opp2 = opp2;
 		this.referee = referee;
 	}
-	public void GetWinner() {
-		
+	public Opponent GetWinner() {
+		int sumScoreOp1 = 0;
+		int sumScoreOp2 = 0;
+		for(Set set : listSet)
+		{
+			if(set.getWinner()== opp1)
+				sumScoreOp1++;
+			else
+				sumScoreOp2++;
+		}
+		if(sumScoreOp1 > sumScoreOp2)
+			return opp1;
+		else
+			return opp2;
 	}
-	public void Play() {
-		
+	public Opponent Play(int nbrSets, ArrayList<Referee> listReferee, ArrayList<Court>listCourt) {
+		Court court = new Court();
+		court = court.Available(listCourt);
+		Referee referee = new Referee();
+		referee = referee.Available(listReferee);
+	    if(court==null)
+	    {
+	    	court.Release(listCourt);
+	    	court = court.Available(listCourt);
+	    }
+	    setCourt(court);
+    	if(referee==null)
+    	{
+    		referee.Release(listReferee);
+    		referee = referee.Available(listReferee);
+    	}
+    	setReferee(referee);
+    	
+    	for(int i = 0; i < nbrSets-1;i++)
+    	{
+    		Set set = new Set(0,0,this);
+    		set.Play();
+    		listSet.add(set);
+    	}
+    	SuperTieBreak superTieBreak = new SuperTieBreak(0,0,this);
+    	superTieBreak.Play();
+		listSet.add(superTieBreak);
+
+		return GetWinner();
 	}
 	@Override
 	public String toString() {
