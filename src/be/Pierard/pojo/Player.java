@@ -44,7 +44,7 @@ public class Player extends Person{
 	}
 	@Override
 	public String toString() {
-		return "Player [rank=" + rank + ", gender=" + gender + ", listOpponent=" + listOpponent + "]";
+		return getLastname() +" "+ getFirstname() +" " + getGender();
 	}
 	@Override
 	public int hashCode() {

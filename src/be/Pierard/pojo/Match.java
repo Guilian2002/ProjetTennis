@@ -74,6 +74,7 @@ public class Match {
 	public void setReferee(Referee referee) {
 		this.referee = referee;
 	}
+	public Match() {}
 	public Match(LocalDateTime date, int duration, int round, Schedule schedule) {
 		super();
 		this.date = date;
@@ -131,12 +132,14 @@ public class Match {
 		referee = referee.Available(listReferee);
 	    if(court==null)
 	    {
+	    	court = new Court();
 	    	court.Release(listCourt);
 	    	court = court.Available(listCourt);
 	    }
 	    setCourt(court);
     	if(referee==null)
     	{
+    		referee = new Referee();
     		referee.Release(listReferee);
     		referee = referee.Available(listReferee);
     	}

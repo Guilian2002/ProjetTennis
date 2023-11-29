@@ -68,54 +68,58 @@ public class Set {
     	boolean scoreForOp1TieBreak = false, scoreForOp2TieBreak = false;
     	int scoreDuringTieBreakPlayer1 = 0;
     	int scoreDuringTieBreakPlayer2 = 0;
-    	do{
-            if(random.nextBoolean()) {
-            	if (scorePointPlayer1 == 0)
-            		scorePointPlayer1 = 15;
-                else if (scorePointPlayer1 == 15)
-                	scorePointPlayer1 = 30;
-                else if (scorePointPlayer1 == 30)
-                	scorePointPlayer1 = 40;
-                else {
-                    if (scorePointPlayer1 == scorePointPlayer2)
-                        scorePointPlayer1 += 10;
-                    else if (scorePointPlayer1 > scorePointPlayer2)
-                        scorePointPlayer1 += 5;
-                }
-                if(scorePointPlayer1 == scorePointPlayer2+15) {
-                	scoreOp1++;
-                	scorePointPlayer1 = 0;
-            		scorePointPlayer2 = 0;
-                }
-                if(scoreOp1 == 6)
-            		scoreForOp1TieBreak = true;
-            } 
-            else {
-            	if (scorePointPlayer2 == 0)
-            		scorePointPlayer2 = 15;
-                else if (scorePointPlayer2 == 15)
-                	scorePointPlayer2 = 30;
-                else if (scorePointPlayer2 == 30)
-                	scorePointPlayer2 = 40;
-                else {
-                    if (scorePointPlayer2 == scorePointPlayer1)
-                        scorePointPlayer2 += 10;
-                    else if (scorePointPlayer2 > scorePointPlayer1)
-                        scorePointPlayer2 += 5;
-                }
-            	if(scorePointPlayer2 == scorePointPlayer1+15) {
-            		scoreOp2++;
-            		scorePointPlayer1 = 0;
-            		scorePointPlayer2 = 0;
-            	}
-                	
-            	if(scoreOp2 == 6)
-            		scoreForOp2TieBreak = true;
-            }
-        }while(scoreOp1 > 6 || scoreOp2 > 6|| (scoreForOp1TieBreak == true && scoreForOp2TieBreak == true));
-		if(scoreOp1 > 6 && scoreForOp2TieBreak == false) 
+    	do {
+    	    if (random.nextBoolean()) {
+    	        if (scorePointPlayer1 == 0)
+    	            scorePointPlayer1 = 15;
+    	        else if (scorePointPlayer1 == 15)
+    	            scorePointPlayer1 = 30;
+    	        else if (scorePointPlayer1 == 30)
+    	            scorePointPlayer1 = 40;
+    	        else {
+    	            if (scorePointPlayer1 == scorePointPlayer2)
+    	                scorePointPlayer1 += 10;
+    	            else if (scorePointPlayer1 > scorePointPlayer2)
+    	                scorePointPlayer1 += 5;
+    	        }
+
+    	        if (scorePointPlayer1 == scorePointPlayer2 + 15) {
+    	            scoreOp1++;
+    	            scorePointPlayer1 = 0;
+    	            scorePointPlayer2 = 0;
+    	        }
+
+    	        if (scoreOp1 == 6) {
+    	            scoreForOp1TieBreak = true;
+    	        }
+    	    } else {
+    	        if (scorePointPlayer2 == 0)
+    	            scorePointPlayer2 = 15;
+    	        else if (scorePointPlayer2 == 15)
+    	            scorePointPlayer2 = 30;
+    	        else if (scorePointPlayer2 == 30)
+    	            scorePointPlayer2 = 40;
+    	        else {
+    	            if (scorePointPlayer2 == scorePointPlayer1)
+    	                scorePointPlayer2 += 10;
+    	            else if (scorePointPlayer2 > scorePointPlayer1)
+    	                scorePointPlayer2 += 5;
+    	        }
+
+    	        if (scorePointPlayer2 == scorePointPlayer1 + 15) {
+    	            scoreOp2++;
+    	            scorePointPlayer1 = 0;
+    	            scorePointPlayer2 = 0;
+    	        }
+
+    	        if (scoreOp2 == 6) {
+    	            scoreForOp2TieBreak = true;
+    	        }
+    	    }
+    	} while ((scoreOp1 < 7 && scoreOp2 < 7) || (scoreForOp1TieBreak == false && scoreForOp2TieBreak == false));
+		if(scoreOp1 == 7 && scoreForOp1TieBreak == false) 
 			winner = match.getOpp1();
-		else if(scoreOp2 > 6 && scoreForOp1TieBreak == false)
+		else if(scoreOp2 == 7 && scoreForOp2TieBreak == false)
 			winner = match.getOpp2();
 		else
 		{

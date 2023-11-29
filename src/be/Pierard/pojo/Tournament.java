@@ -36,19 +36,21 @@ public class Tournament {
 	public void setListReferee(ArrayList<Referee> listReferee) {
 		this.listReferee = listReferee;
 	}
-	public Tournament(String name,ArrayList<Schedule> listSchedule) {
+	public Tournament(String name, ArrayList<Schedule> listSchedule) {
 		super();
 		this.name = name;
 		this.listCourt = new ArrayList<Court>();
 		this.listReferee = new ArrayList<Referee>();
+		ArrayList<Match> listMatch = new ArrayList<Match>();
 		if(listSchedule.size() == 0)
 		{
-			listSchedule.add(new Schedule(ScheduleType.GentlemenSingle,1,this));
-	        listSchedule.add(new Schedule(ScheduleType.LadiesSingle,1,this));
-	        listSchedule.add(new Schedule(ScheduleType.GentlemenDouble,1,this));
-	        listSchedule.add(new Schedule(ScheduleType.LadiesDouble,1,this));
-	        listSchedule.add(new Schedule(ScheduleType.MixedDouble,1,this));
+			listSchedule.add(new Schedule(ScheduleType.GentlemenSingle,1,this,listMatch));
+	        listSchedule.add(new Schedule(ScheduleType.LadiesSingle,1,this,listMatch));
+	        listSchedule.add(new Schedule(ScheduleType.GentlemenDouble,1,this,listMatch));
+	        listSchedule.add(new Schedule(ScheduleType.LadiesDouble,1,this,listMatch));
+	        listSchedule.add(new Schedule(ScheduleType.MixedDouble,1,this,listMatch));
 		}
+		System.out.println(listSchedule.size());
 		setListSchedule(listSchedule);
 	}
 	public Tournament(String name, ArrayList<Court> listCourt, ArrayList<Schedule> listSchedule,
@@ -59,11 +61,10 @@ public class Tournament {
 		this.listSchedule = listSchedule;
 		this.listReferee = listReferee;
 	}
-	public void Play(){
-        for(int i = 0; i < 5; i++)
-        {
-        	listSchedule.get(i).PlayNextRound();
-        }
+	public void Play() {
+	    for (int i = 0; i < 5 && i < listSchedule.size(); i++) {
+	        listSchedule.get(i).PlayNextRound();
+	    }
 	}
 	@Override
 	public String toString() {
