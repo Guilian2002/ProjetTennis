@@ -115,7 +115,7 @@ public class Match {
 		int sumScoreOp2 = 0;
 		for(Set set : listSet)
 		{
-			if(set.getWinner()== opp1)
+			if(set.getWinner().equals(opp1))
 				sumScoreOp1++;
 			else
 				sumScoreOp2++;

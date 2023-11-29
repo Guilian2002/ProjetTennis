@@ -50,7 +50,6 @@ public class Tournament {
 	        listSchedule.add(new Schedule(ScheduleType.LadiesDouble,1,this,listMatch));
 	        listSchedule.add(new Schedule(ScheduleType.MixedDouble,1,this,listMatch));
 		}
-		System.out.println(listSchedule.size());
 		setListSchedule(listSchedule);
 	}
 	public Tournament(String name, ArrayList<Court> listCourt, ArrayList<Schedule> listSchedule,

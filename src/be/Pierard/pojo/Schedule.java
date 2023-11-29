@@ -61,7 +61,6 @@ public class Schedule {
         this.actualRound = actualRound;
         this.tournament = tournament;
         this.listMatch = new ArrayList<Match>();
-        System.out.println(listMatch.size());
         if(type == ScheduleType.GentlemenSingle)
         	this.listMatch.add(new Match(LocalDateTime.now(),300,actualRound,this));
         else
@@ -82,7 +81,6 @@ public class Schedule {
                 listMatch.add(new Match(LocalDateTime.now(), 180, actualRound, this));
             }
         }
-        System.out.println(listMatch.size());
         setListMatch(listMatch);
     }
 
@@ -94,7 +92,6 @@ public class Schedule {
     }
 
     public void PlayNextRound() {
-    	System.out.println("List Match : "+listMatch.size());
     	int[] matchNumberTab  = {63,32,16,8,4,2,1};
     	int[] matchNumberTab2  = {31,16,8,4,2,1};
     	int nbrSets = NbWinningSets();
@@ -110,13 +107,10 @@ public class Schedule {
 	        Court court = courtDAO.find(i);
 	        listCourt.add(court);
 	    }
-	    System.out.println(listReferee.size());
-	    System.out.println(listCourt.size());
         for (int i = 0; i < 256; i++) {
             Player player = playerDAO.find(i + 1);
             listPlayer.add(player);
         }
-        System.out.println(listPlayer.size());
         Queue<Opponent> winnersQueue = new LinkedList<Opponent>();
         if(type == ScheduleType.GentlemenSingle || type == ScheduleType.LadiesSingle) {
         	for (int i = 0; i < 7; i++) {
@@ -229,24 +223,10 @@ public class Schedule {
                 actualRound++;
     		}
     	}
-        System.out.println("List Match : "+listMatch.size());
     }
 
     public Opponent GetWinner() {
-    	int sumScoreOp1 = 0;
-		int sumScoreOp2 = 0;
-		for(Set set : listMatch.get(listMatch.size()-1).getListSet())
-		{
-			if(set.getWinner()== listMatch.get(listMatch.size()-1).getOpp1())
-				sumScoreOp1++;
-			else
-				sumScoreOp2++;
-		}
-		System.out.println(listMatch.get(listMatch.size()-1).getOpp1().getPlayerOne().getFirstname());
-		if(sumScoreOp1 > sumScoreOp2)
-			return listMatch.get(listMatch.size()-2).getOpp1();
-		else
-			return listMatch.get(listMatch.size()-2).getOpp2();
+		return listMatch.get(0).GetWinner();
     }
 
 	@Override
